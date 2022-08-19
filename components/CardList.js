@@ -1,20 +1,23 @@
 import CardItem from './CardItem';
 
-export default function CardList({ posts }) {
+export default function CardList({ posts, filterState }) {
   //console.log(posts);
   //console.log('I am card list', posts);
+
+  const viewStyles =
+    filterState.view.list === 0
+      ? 'md:grid-cols-3 lg:grid-cols-3'
+      : 'md:grid-cols-1 lg:grid-cols-1';
+
   return (
     <>
-      <div className='flex flex-col md:flex-row -mx-1 lg:-mx-4'>
+      <div className={`grid ${viewStyles} gap-y-5 md:justify-items-center `}>
         {posts.map((post) => (
-          <div
-            key={post.slug}
-            className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3'
-          >
+          <div key={post.slug} className='w-full md:w-11/12 lg:my-4 lg:px-4'>
             <CardItem
               title={post.title}
               slug={post.slug}
-              excerpt={post.excerpt}
+              // excerpt={post.excerpt}
               date={post.publishedAt}
               img={post.mainImage}
               authorImage={
@@ -25,19 +28,6 @@ export default function CardList({ posts }) {
           </div>
         ))}
       </div>
-      {/* <div className='flex flex-col md:flex-row -mx-1 lg:-mx-4'>
-       
-
-        <div className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3'>
-          <CardItem />
-        </div>
-        <div className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3'>
-          <CardItem />
-        </div>
-        <div className='my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3'>
-          <CardItem />
-        </div>
-      </div> */}
     </>
   );
 }
